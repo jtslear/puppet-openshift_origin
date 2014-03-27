@@ -35,4 +35,20 @@ class openshift_origin::plugins::frontend::nodejs_websocket {
     ],
     provider   => $openshift_origin::params::os_init_provider,
   }
+
+  file { 
+    [
+      '/var/log/node-web-proxy/error.log',
+      '/var/log/node-web-proxy/websockets.log',
+      '/var/log/node-web-proxy/access.log',
+    ]:
+    ensure  => present,
+    owner   => 'apache',
+    group   => 'root',
+    mode    => '0644',
+    require    => [
+      Package['openshift-origin-node-proxy'],      
+      Package['openshift-origin-node-util'],
+    ],
+  }
 }
