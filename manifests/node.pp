@@ -142,6 +142,7 @@ class openshift_origin::node {
       'messagebus',
     ]:
     enable  => true,
+    ensure => running,
     require => [
       Package['rubygem-openshift-origin-node'],      
       Package['openshift-origin-node-util'],
@@ -166,7 +167,8 @@ class openshift_origin::node {
     }
 
     service { ['cgconfig', 'cgred']:
-      enable => true
+      enable => true,
+      ensure => running,
     } 
   }
 
